@@ -27,3 +27,12 @@ pdm install
 2. run `python generate_data.py` to generate trip data
 3. run `duckdb dbt_demo.duckdb` to create database and `.read scripts/load_trips.sql` to load data, then quit duckdb
 4. run `dbt run -m {model_name}` on any model
+
+### TODO
+
+- [ ] add unit tests on models
+- [ ] add data tests on ads result
+- [ ] add git post-hook on sql format
+- [ ] create some macros and analyses
+- [ ] add some dbt docs
+- [ ] add examples of snapshots
