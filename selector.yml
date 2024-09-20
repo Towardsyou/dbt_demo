@@ -1,0 +1,8 @@
+selectors:
+  - name: example-selector
+    definition:
+      union:
+        - config.materialized:view
+        - other_model_name
+        - exclude:
+          - to_be_excluded

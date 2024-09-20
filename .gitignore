@@ -1,0 +1,7 @@
+# DBT
+target/
+dbt_packages/
+logs/
+# Python
+.venv
+__pycache__

@@ -1,0 +1,9 @@
+dbt_demo:
+  target: demo
+  outputs:
+    demo:
+      type: duckdb
+      path: dbt_demo.duckdb
+      extensions:
+        - spatial
+        - parquet

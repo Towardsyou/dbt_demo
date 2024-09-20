@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: demo
+    schema: demo
+    tables:
+      - name: trips
+        columns:
+          - name: trip_id
+            tests:
+              - unique
+              - not_null
+          - name: provider_id
+            tests:
+              - accepted_values:
+                  values: [1, 2, 3]
+
+      - name: register
+      - name: login
+      - name: purchase
