@@ -15,6 +15,28 @@ sources:
               - accepted_values:
                   values: [1, 2, 3]
 
-      - name: register
-      - name: login
-      - name: purchase
+      - name: registers
+        columns:
+          - name: user_id
+            tests:
+              - unique
+              - not_null
+          - name: event_time
+      - name: logins
+        columns:
+          - name: user_id
+            tests:
+              - relationships:
+                  to: ref('registers')
+                  field: user_id
+          - name: event_time
+      - name: transactions
+        columns:
+          - name: user_id
+            tests:
+              - relationships:
+                  to: ref('registers')
+                  field: user_id
+          - name: event_time
+          - name: amount
+

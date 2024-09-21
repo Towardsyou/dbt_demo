@@ -16,6 +16,8 @@ clean-targets:
 models:
   dbt_demo:
     geo:
+      +tags:
+        - geo
       dws:
         dws_city:
           +materialized: table
@@ -26,3 +28,7 @@ models:
           +materialized: table
         dashboard_provider:
           +materialized: table
+    event:
+      +materialized: table
+      +tags:
+        - event
