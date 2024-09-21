@@ -1,0 +1,50 @@
+unit_tests:
+  - name: general_check
+    description: "Check basic functionality"
+    model: life_time_value
+    overrides:
+    given:
+      - input: ref("trans")
+        format: dict
+        rows:
+          - {
+              # same day of registration
+              user_id: 1,
+              trans_time: 2024-01-10 14:00:00,
+              register_time: 2024-01-10 12:00:00,
+              amount: 1,
+            }
+          - {
+              # second day of registration
+              user_id: 1,
+              trans_time: 2024-01-11 12:00:00,
+              register_time: 2024-01-10 12:00:00,
+              amount: 2,
+            }
+          - {
+              # 10th day of registration
+              user_id: 1,
+              trans_time: 2024-01-20 12:00:00,
+              register_time: 2024-01-10 12:00:00,
+              amount: 4,
+            }
+          - {
+              # 14th day of registration, but more than 14 * 24 hours
+              user_id: 1,
+              trans_time: 2024-01-24 13:00:00,
+              register_time: 2024-01-10 12:00:00,
+              amount: 8,
+            }
+          - {
+              # 15th day of registration
+              user_id: 1,
+              trans_time: 2024-01-25 12:00:00,
+              register_time: 2024-01-10 12:00:00,
+              amount: 16,
+            }
+    expect:
+      rows:
+        - user_id: 1
+          ltv_7: 3
+          ltv_14: 15
+          ltv_365: 31
