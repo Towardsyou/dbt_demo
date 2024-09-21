@@ -39,5 +39,9 @@ pdm install
 
 ### Hooks
 
-- `chmod +x .hooks/pre-commit`
-- `ln .hooks/pre-commit .git/hooks`
+- format sql before commit
+  - `chmod +x .hooks/pre-commit`
+  - `ln .hooks/pre-commit .git/hooks`
+- check commit message format
+  - `chmod +x .hooks/commit-msg`
+  - `ln .hooks/commit-msg .git/hooks`

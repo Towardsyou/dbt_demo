@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Define the regex for the Angular commit convention:
+# https://github.com/angular/angular/blob/main/CONTRIBUTING.md#-commit-message-format
+# First line must match: type(scope): description
+# Types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert
+commit_regex='^(feat|fix|docs|style|refactor|test|chore|perf|ci|build|revert)(\([a-zA-Z0-9_-]+\))?: .{1,100}$'
+
+# Read the commit message from the file passed as argument
+commit_message=$(cat "$1")
+
+# Extract the first line of the commit message (the subject line)
+first_line=$(echo "$commit_message" | head -n1)
+
+# Test if the first line matches the Angular commit convention
+if ! echo "$first_line" | grep -Eq "$commit_regex"; then
+    echo "Error: Invalid commit message format."
+    echo ""
+    echo "Your commit message should follow the Angular commit convention:"
+    echo "  <type>(<scope>): <subject>"
+    echo ""
+    echo "Allowed types: feat, fix, docs, style, refactor, test, chore, perf, ci, build, revert"
+    echo "Scope is optional but must be enclosed in parentheses if used."
+    echo "The subject should be less than 100 characters."
+    echo ""
+    echo "Example of a valid commit message:"
+    echo "  feat(auth): add login functionality"
+    echo ""
+    echo "Detailed description of the change can be added in subsequent lines."
+    exit 1
+fi
+
+# Ensure the second line is empty (as per conventional commits)
+second_line=$(echo "$commit_message" | sed -n '2p')
+if [ -n "$second_line" ]; then
+    echo "Error: The second line of the commit message should be empty."
+    exit 1
+fi
+
+# All checks passed, allow the commit
+exit 0
