@@ -1,4 +1,4 @@
-create or replace schema demo;
+create schema if not exists demo;
 
 INSTALL spatial;
 LOAD spatial;
