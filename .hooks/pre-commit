@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# Get all staged SQL files
+sql_files=$(git diff --cached --name-only --diff-filter=ACM | grep '\.sql$')
+
+if [ -n "$sql_files" ]; then
+    echo "Running SQLFluff on staged SQL files..."
+
+    # Run SQLFluff fix on each staged SQL file
+    for file in $sql_files; do
+        sqlfluff format "$file"
+        if [ $? -ne 0 ]; then
+            echo "SQLFluff failed on $file. Please check the errors and try again."
+            exit 1
+        fi
+        # Stage the fixed file
+        git add "$file"
+    done
+
+    echo "SQLFluff completed successfully."
+else
+    echo "No SQL files to check."
+fi
+
+exit 0

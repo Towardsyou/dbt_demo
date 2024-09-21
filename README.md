@@ -36,3 +36,8 @@ pdm install
 - [ ] create some macros and analyses
 - [ ] add some dbt docs
 - [ ] add examples of snapshots
+
+### Hooks
+
+- `chmod +x .hooks/pre-commit`
+- `ln .hooks/pre-commit .git/hooks`
